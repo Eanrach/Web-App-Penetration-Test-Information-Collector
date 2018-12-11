@@ -1,6 +1,7 @@
-import whois
+#import whois
 import os
 import requests
+from requests.cookies import RequestsCookieJar
 import random
 import json
 import pytesseract
@@ -24,11 +25,40 @@ def get_verify_code():
         'Host': "www.miitbeian.gov.cn",
         'Referer': "http://www.miitbeian.gov.cn/icp/publish/query/icpMemoInfo_searchExecute.action",
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0",
-        'Upgrade-Insecure-Requests': "1",
-        'Cookie' : "__jsluid=c4601189393cf1eb89ec4acfc580b322; JSESSIONID=GyGBZcrqzFExD4EgNCNbsYtwxG4x4CLHTD4D9xpX1ztJDREmeQPD!-736616813; __jsl_clearance=1544070858.513|0|j8pkp7b2ejNmHKeD%2BVuwSdxUsYw%3D"
+        'Upgrade-Insecure-Requests': "1"
     }
 
     response = requests_session.get(url, headers=headers)
+    print(set(response.cookies))
+    for item in response.cookies:
+        print('Name =' + item.name)
+        print('Value =' + item.value)
+
+    for response.status_code in range(520, 522):
+
+        url = "http://www.miitbeian.gov.cn/getDetailVerifyCode?26"
+
+        headers = {
+            'Accept': "*/*",
+            'Accept-Encoding': "gzip, deflate",
+            'Accept-Language': "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
+            'Cache-Control': "no-cache",
+            'Connection': "keep-alive",
+            'Host': "www.miitbeian.gov.cn",
+            'Referer': "http://www.miitbeian.gov.cn/icp/publish/query/icpMemoInfo_searchExecute.action",
+            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0",
+            'Upgrade-Insecure-Requests': "1"
+        }
+
+
+        cookie = RequestsCookieJar()
+        #cookie.set(response.cookies)
+        for item in cookie:
+            print('Name =' + item.name)
+            print('Value =' + item.value)
+
+        response = requests_session.get(url, headers=headers, cookies=cookie)
+
     print(response.status_code)
     if response.status_code == 200:
         with open('./code.jpg', 'wb') as file:
@@ -81,5 +111,14 @@ def IPC(verifyCode, domain):
                 "web_name": icp_list[3], "domain": icp_list[4], "check_data": icp_list[-2]}
     return icp_info
 
+
+
+import mod_whois
+import argparse
+
 if __name__ == '__main__':
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('-w', '--whois', dest='domain', help='WhoIs a Domain', type=str, default='baidu.com')
+    # args = parser.parse_args()
+    # print(mod_whois.whoisDomain(args.domain))
     get_verify_code()

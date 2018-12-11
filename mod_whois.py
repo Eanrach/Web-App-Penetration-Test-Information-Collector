@@ -1,7 +1,8 @@
 import whois
 import os
 
-def whoisdomain(domain):
+
+def whoisDomain(domain):
     domain = domain
     whois_domain = whois.whois(domain)
     whois_domain_file_name = './whois_' + domain + '.json'
@@ -23,5 +24,15 @@ def writeFile(*args):
     else:
         return (fileName + 'is already exist', fileContent)
 
-if __name__ == '__main__':
-    print(writeFile(whoisdomain('google.com')))
+# if __name__ == '__main__':
+#     print(writeFile(whoisDomain('google.com')))
+
+# import mod_whois
+# import argparse
+#
+#
+# if __name__ == '__main__':
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('-w', '--whois', dest='domain', help='WhoIs a Domain', type=str, default='baidu.com')
+#     args = parser.parse_args()
+#     print(mod_whois.whoisDomain(args.domain))
