@@ -1,5 +1,6 @@
 import whois
 import os
+import nmap
 
 
 def whoisDomain(domain):
@@ -7,6 +8,18 @@ def whoisDomain(domain):
     whois_domain = whois.whois(domain)
     whois_domain_file_name = './whois_' + domain + '.json'
     return (whois_domain_file_name, whois_domain)
+
+def nslookup(domain):
+    result = str(os.popen('nslookup ' + domain).read())
+    fileName = 'nslookup_' + domain +'.json'
+    fileCotent = result
+    return fileName, fileCotent
+
+def scanner(domain):
+    nm = nmap.PortScanner()
+    result = nm.scan(domain, ports='1-65535', arguments="-sS")
+    nmap_domain_file_name = './nmap_' + domain + '.json'
+    return(nmap_domain_file_name, result)
 
 def writeFile(*args):
     #print(len(args))

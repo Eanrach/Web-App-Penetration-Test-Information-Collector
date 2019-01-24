@@ -113,12 +113,23 @@ def IPC(verifyCode, domain):
 
 
 
-import mod_whois
+import mod
 import argparse
 
+
+
+
+
+
 if __name__ == '__main__':
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('-w', '--whois', dest='domain', help='WhoIs a Domain', type=str, default='baidu.com')
-    # args = parser.parse_args()
-    # print(mod_whois.whoisDomain(args.domain))
-    get_verify_code()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-w', '--whois', dest='domain', help='WhoIs a Domain', type=str)
+    parser.add_argument('-n', '--nmap', dest='host', help='Nmap a Domain', type=str)
+    args = parser.parse_args()
+    if args.domain:
+        print(mod.whoisDomain(args.domain))
+    else:
+        print('you misst argument \'-w\', plese enter a domain')
+    if args.host:
+        print(scanner(args.host))
+    #get_verify_code()
