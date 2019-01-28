@@ -131,5 +131,5 @@ if __name__ == '__main__':
     else:
         print('you misst argument \'-w\', plese enter a domain')
     if args.host:
-        print(scanner(args.host))
+        print(mod.scanner(args.host))
     #get_verify_code()

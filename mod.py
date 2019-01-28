@@ -15,10 +15,10 @@ def nslookup(domain):
     fileCotent = result
     return fileName, fileCotent
 
-def scanner(domain):
+def scanner(host):
     nm = nmap.PortScanner()
-    result = nm.scan(domain, ports='1-65535', arguments="-sS")
-    nmap_domain_file_name = './nmap_' + domain + '.json'
+    result = nm.scan(host, ports='1-65535', arguments="-sS")
+    nmap_domain_file_name = './nmap_' + host + '.json'
     return(nmap_domain_file_name, result)
 
 def writeFile(*args):
@@ -40,12 +40,3 @@ def writeFile(*args):
 # if __name__ == '__main__':
 #     print(writeFile(whoisDomain('google.com')))
 
-# import mod_whois
-# import argparse
-#
-#
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('-w', '--whois', dest='domain', help='WhoIs a Domain', type=str, default='baidu.com')
-#     args = parser.parse_args()
-#     print(mod_whois.whoisDomain(args.domain))
